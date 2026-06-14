@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="name" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00f0ff"/>
+      <stop offset="0.5" stop-color="#7af9ff"/>
+      <stop offset="1" stop-color="#ff00e5"/>
+    </linearGradient>
+    <radialGradient id="g1" cx="0.78" cy="0.2" r="0.7">
+      <stop offset="0" stop-color="#00f0ff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#00f0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="0.15" cy="0.9" r="0.7">
+      <stop offset="0" stop-color="#ff00e5" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#ff00e5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#00f0ff" stroke-opacity="0.07"/>
+    </pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+  <text x="80" y="150" font-family="JetBrains Mono, monospace" font-size="28" fill="#00f0ff" opacity="0.85">// XS</text>
+  <g filter="url(#glow)" opacity="0.92">
+    <text x="76" y="330" font-family="Space Grotesk, sans-serif" font-size="120" font-weight="700" fill="url(#name)">Faith Popoola</text>
+  </g>
+  <text x="80" y="330" font-family="Space Grotesk, sans-serif" font-size="120" font-weight="700" fill="url(#name)">Faith Popoola</text>
+  <text x="84" y="400" font-family="JetBrains Mono, monospace" font-size="34" fill="#e7e7f0">Software Engineer · Full-stack &amp; Frontend Lead @ PortalHq</text>
+  <text x="84" y="455" font-family="JetBrains Mono, monospace" font-size="26" fill="#8a8aa3">Fintech infrastructure · Distributed systems · React Native · Go · NestJS</text>
+  <rect x="80" y="520" width="1040" height="2" fill="url(#name)" opacity="0.6"/>
+  <text x="84" y="565" font-family="JetBrains Mono, monospace" font-size="24" fill="#aaff00">github.com/Maxima24</text>
+</svg>

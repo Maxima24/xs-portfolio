@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="txt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff00e5"/>
+      <stop offset="1" stop-color="#00f0ff"/>
+    </linearGradient>
+    <radialGradient id="blob1" cx="0.7" cy="0.3" r="0.6">
+      <stop offset="0" stop-color="#ff00e5" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ff00e5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blob2" cx="0.2" cy="0.85" r="0.6">
+      <stop offset="0" stop-color="#00f0ff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#00f0ff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ff00e5" stroke-opacity="0.08"/>
+    </pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="720" fill="#0a0a0f"/>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <rect width="1280" height="720" fill="url(#blob1)"/>
+  <rect width="1280" height="720" fill="url(#blob2)"/>
+  <g filter="url(#glow)" opacity="0.9">
+    <text x="80" y="380" font-family="Space Grotesk, sans-serif" font-size="96" font-weight="700" fill="url(#txt)">SwiftHum</text>
+  </g>
+  <text x="80" y="380" font-family="Space Grotesk, sans-serif" font-size="96" font-weight="700" fill="url(#txt)">SwiftHum</text>
+  <text x="84" y="430" font-family="JetBrains Mono, monospace" font-size="30" fill="#b9b9d0">Ultrasonic P2P payments</text>
+  <text x="84" y="660" font-family="JetBrains Mono, monospace" font-size="22" fill="#ff00e5" opacity="0.8">// XS · Faith Popoola</text>
+</svg>

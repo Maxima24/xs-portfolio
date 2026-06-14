@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0a0f;
+}
+
+* {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--bg);
+  color: #e7e7f0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle ambient backdrop: neon grid + radial glows behind everything */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60rem 40rem at 75% -10%,
+      rgba(0, 240, 255, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 35rem at 10% 110%,
+      rgba(255, 0, 229, 0.09),
+      transparent 60%
+    );
+}
+
+@layer base {
+  ::selection {
+    background: rgba(0, 240, 255, 0.25);
+    color: #ffffff;
+  }
+
+  /* Neon focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid #00f0ff;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Thin neon scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0f;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#00f0ff, #ff00e5);
+    border-radius: 999px;
+    border: 2px solid #0a0a0f;
+  }
+}
+
+@layer components {
+  /* Neon text glow helpers */
+  .text-glow-cyan {
+    color: #d6feff;
+    text-shadow:
+      0 0 6px rgba(0, 240, 255, 0.8),
+      0 0 22px rgba(0, 240, 255, 0.45);
+  }
+  .text-glow-magenta {
+    color: #ffd6f8;
+    text-shadow:
+      0 0 6px rgba(255, 0, 229, 0.8),
+      0 0 22px rgba(255, 0, 229, 0.45);
+  }
+
+  /* Gradient neon headline text */
+  .text-gradient-neon {
+    background: linear-gradient(92deg, #00f0ff 0%, #7af9ff 35%, #ff00e5 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Card surface used across sections */
+  .surface {
+    background:
+      linear-gradient(180deg, rgba(20, 20, 31, 0.85), rgba(15, 15, 23, 0.85));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+  }
+
+  /* Animated neon underline for nav links */
+  .nav-underline {
+    position: relative;
+  }
+  .nav-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(90deg, #00f0ff, #ff00e5);
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
+    transition: transform 0.28s ease;
+  }
+  .nav-underline:hover::after,
+  .nav-underline[data-active='true']::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Respect reduced-motion: kill non-essential animation everywhere */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
