@@ -1,12 +1,21 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  animate,
+  type MotionValue,
+} from 'framer-motion';
 import type { Project } from '@/data/projects';
 import { Chip } from './Chip';
 
 const RADIUS = 150; // px — orbit radius
 const AUTO_MS = 6000; // matches the countdown arc duration
-const SPIN = 'transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+const SPIN_S = 0.7; // ring spin duration
+const EASE = [0.22, 1, 0.36, 1] as const;
+const DISC = 72; // disc box size (px)
 
 const accent = {
   cyan: {
@@ -38,20 +47,86 @@ function shortestDelta(i: number, active: number, n: number) {
   return d;
 }
 
+/**
+ * One orbiting disc. Its position is derived from the shared `angle` motion
+ * value via cos/sin, so it's a single composited translate that stays upright
+ * (no counter-rotation). Framer writes the transform straight to the DOM.
+ */
+function Disc({
+  project,
+  baseAngle,
+  angle,
+  isActive,
+  onSelect,
+}: {
+  project: Project;
+  baseAngle: number;
+  angle: MotionValue<number>;
+  isActive: boolean;
+  onSelect: () => void;
+}) {
+  const x = useTransform(
+    angle,
+    (a) => RADIUS * Math.cos(((baseAngle + a) * Math.PI) / 180),
+  );
+  const y = useTransform(
+    angle,
+    (a) => RADIUS * Math.sin(((baseAngle + a) * Math.PI) / 180),
+  );
+  const na = accent[project.accent];
+
+  return (
+    <motion.button
+      type="button"
+      onClick={onSelect}
+      aria-label={`Show ${project.title}`}
+      aria-current={isActive}
+      title={project.title}
+      style={{
+        x,
+        y,
+        width: DISC,
+        height: DISC,
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        marginLeft: -DISC / 2,
+        marginTop: -DISC / 2,
+      }}
+      animate={{ scale: isActive ? 1.15 : 0.8, opacity: isActive ? 1 : 0.5 }}
+      transition={{ duration: 0.45, ease: EASE }}
+      className={`overflow-hidden rounded-full border-2 transition-[border-color,box-shadow] duration-500 ${
+        isActive ? na.ring : 'border-white/15 hover:opacity-90'
+      }`}
+    >
+      <img
+        src={`/projects/thumbs/${project.slug}.svg`}
+        alt=""
+        className="h-full w-full object-cover"
+      />
+    </motion.button>
+  );
+}
+
 export function ProjectCarousel({ projects }: { projects: Project[] }) {
   const n = projects.length;
   const step = 360 / n;
   const [active, setActive] = useState(0);
-  const [rotation, setRotation] = useState(0); // cumulative deg, always short way
   const [paused, setPaused] = useState(false);
+
+  // Cumulative target angle (deg), always moved the short way. The motion value
+  // is animated toward it by Framer — interruption-safe and off the React loop.
+  const rotationRef = useRef(0);
+  const angle = useMotionValue(0);
 
   const move = useCallback(
     (delta: number) => {
       if (!delta) return;
-      setRotation((r) => r - delta * step);
+      rotationRef.current -= delta * step;
+      animate(angle, rotationRef.current, { duration: SPIN_S, ease: EASE });
       setActive((a) => (((a + delta) % n) + n) % n);
     },
-    [step, n],
+    [step, n, angle],
   );
   const next = useCallback(() => move(1), [move]);
   const prev = useCallback(() => move(-1), [move]);
@@ -60,9 +135,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
     [move, active, n],
   );
 
-  // Auto-advance on a timer that restarts whenever the active project changes
-  // (manual nav included) and pauses on hover/focus. The countdown arc below is
-  // a purely visual indicator kept roughly in sync via the same duration.
+  // Auto-advance; restarts on every change, pauses on hover/focus.
   useEffect(() => {
     if (paused || n <= 1) return;
     const id = window.setTimeout(() => move(1), AUTO_MS);
@@ -92,7 +165,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
       onKeyDown={onKeyDown}
-      className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2"
+      className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2"
     >
       <p aria-live="polite" className="sr-only">
         Project {active + 1} of {n}: {current.title}
@@ -117,56 +190,21 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
           }}
         />
 
-        {/* rotating ring of discs */}
-        <div
-          className="absolute inset-0"
-          style={{ transform: `rotate(${rotation}deg)`, transition: SPIN }}
-        >
-          {projects.map((p, i) => {
-            const angle = i * step; // 0deg = right (focal)
-            const isActive = i === active;
-            const size = isActive ? 84 : 56;
-            const na = accent[p.accent];
-            return (
-              <div
-                key={p.slug}
-                className="absolute left-1/2 top-1/2"
-                style={{
-                  transform: `translate(-50%,-50%) rotate(${angle}deg) translateX(${RADIUS}px) rotate(${-angle}deg)`,
-                }}
-              >
-                <div
-                  style={{
-                    transform: `rotate(${-rotation}deg)`,
-                    transition: SPIN,
-                  }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => goTo(i)}
-                    aria-label={`Show ${p.title}`}
-                    aria-current={isActive}
-                    title={p.title}
-                    style={{ width: size, height: size }}
-                    className={`overflow-hidden rounded-full border-2 transition-all duration-500 ${
-                      isActive
-                        ? na.ring
-                        : 'border-white/15 opacity-50 hover:opacity-90'
-                    }`}
-                  >
-                    <img
-                      src={`/projects/thumbs/${p.slug}.svg`}
-                      alt=""
-                      className="h-full w-full object-cover"
-                    />
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+        {/* discs — positioned by the shared angle motion value */}
+        <div className="absolute inset-0">
+          {projects.map((p, i) => (
+            <Disc
+              key={p.slug}
+              project={p}
+              baseAngle={i * step}
+              angle={angle}
+              isActive={i === active}
+              onSelect={() => goTo(i)}
+            />
+          ))}
         </div>
 
-        {/* radial countdown ring at the focal point (right), drives auto-advance */}
+        {/* radial countdown ring at the focal point (right) */}
         <div
           className="absolute left-1/2 top-1/2"
           style={{ transform: `translate(-50%,-50%) translateX(${RADIUS}px)` }}
@@ -193,18 +231,23 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
 
       {/* ── Detail panel ─────────────────────────────────────── */}
       <div
-        key={current.slug}
-        className={`surface relative animate-fadeIn overflow-hidden rounded-2xl before:absolute before:inset-x-0 before:top-0 before:h-px before:content-[''] ${a.panel}`}
+        className={`surface relative overflow-hidden rounded-2xl before:absolute before:inset-x-0 before:top-0 before:h-px before:content-[''] ${a.panel}`}
       >
+        {/* All covers stacked once and crossfaded — no remount, no decode flicker */}
         <div className="relative aspect-[16/9] border-b border-white/10">
-          <img
-            src={current.image}
-            alt={`${current.title} — cover`}
-            className="h-full w-full object-cover"
-          />
+          {projects.map((p, i) => (
+            <img
+              key={p.slug}
+              src={p.image}
+              alt={i === active ? `${p.title} — cover` : ''}
+              aria-hidden={i !== active}
+              className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+              style={{ opacity: i === active ? 1 : 0 }}
+            />
+          ))}
         </div>
 
-        <div className="flex flex-col gap-3 p-6">
+        <div className="flex flex-col gap-3 p-6 lg:min-h-[15rem]">
           <span
             className={`font-mono text-xs uppercase tracking-[0.25em] ${a.text}`}
           >
