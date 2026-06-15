@@ -1,4 +1,5 @@
 import type { TrackContent } from '@/data/tracks/types';
+import { hackathons } from '@/data/hackathons';
 import { Nav } from './Nav';
 import { Hero } from './Hero';
 import { FeaturedProducts } from './FeaturedProducts';
@@ -13,11 +14,21 @@ import { Footer } from './Footer';
  * `content` (hero copy, featured projects, tech-depth, about) differs per track.
  */
 export function Portfolio({ content }: { content: TrackContent }) {
+  // Hero stat strip — derived from data so it's correct on every track.
+  const stats = [
+    { value: String(content.projects.length), label: 'production systems' },
+    { value: String(hackathons.length), label: 'hackathon wins' },
+    { value: content.coreStack, label: 'core stack' },
+  ];
   return (
     <>
       <Nav />
       <main>
-        <Hero role={content.hero.role} valueProp={content.hero.valueProp} />
+        <Hero
+          role={content.hero.role}
+          valueProp={content.hero.valueProp}
+          stats={stats}
+        />
         <FeaturedProducts
           intro={content.projectsIntro}
           projects={content.projects}

@@ -79,6 +79,7 @@ export const frontend: TrackContent = {
     valueProp:
       "I build fast, accessible interfaces and cross-platform apps end-to-end — React, Next.js, and React Native — with real-time UX and a designer's eye for detail.",
   },
+  coreStack: 'React · Next.js · TS',
   projectsIntro:
     "Interfaces and cross-platform apps I've shipped to production — mobile clients, real-time dashboards, and checkout flows. Each card leads with what I built and how it feels to use.",
   projects,

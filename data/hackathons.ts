@@ -16,7 +16,7 @@ export const hackathons: Hackathon[] = [
     event: 'OPay × Google National Innovation Challenge 2026',
     project: 'OWise',
     status: 'Built for the challenge',
-    built: 'WhatsApp / USSD / voice AI assistant for informal traders, powered by Gemini.',
+    built: 'Pitched and prototyped against a national field — an AI assistant that meets informal traders on the channels they already use.',
     stack: ['Go', 'NestJS', 'Gemini Live'],
     accent: 'lime',
   },

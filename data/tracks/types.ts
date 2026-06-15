@@ -23,6 +23,8 @@ export interface TrackContent {
     role: string;
     valueProp: string;
   };
+  /** 3 headline technologies for the hero stat strip, e.g. "Go · TS · NestJS" */
+  coreStack: string;
   projectsIntro: string;
   /** featured products, already ordered + reframed for this audience */
   projects: Project[];

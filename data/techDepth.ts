@@ -28,7 +28,7 @@ export const techDepth: TechDepthItem[] = [
   },
   {
     title: 'Real-time anomaly detection over sliding windows',
-    context: 'Anomaly Detection Engine (Go)',
+    context: 'Anomaly Detection Engine',
     body: 'Per-IP and global request rates live in time-evicted sliding windows, while a rolling 30-minute baseline with time-of-day awareness models what "normal" looks like right now. Traffic is flagged when it crosses a 3σ Z-score or a 5× spike multiplier, then banned via iptables on an exponential-backoff schedule — with the log tailer, baseline, detector, and unbanner all running concurrently over goroutines.',
     tags: ['Sliding window', 'Z-score / σ', 'Go concurrency'],
   },

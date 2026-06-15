@@ -31,6 +31,7 @@ export const backend: TrackContent = {
     valueProp:
       'I design and ship backend systems end-to-end — Go and NestJS services, distributed-systems correctness, and the infrastructure that runs them.',
   },
+  coreStack: 'Go · NestJS · Docker',
   projectsIntro:
     "Services and systems I've architected and shipped — payments cores, an AI microservice, a search engine, and infra. Each card leads with the system I owned and the guarantee it makes.",
   projects,

@@ -18,9 +18,11 @@ const item = {
 export function Hero({
   role,
   valueProp,
+  stats,
 }: {
   role: string;
   valueProp: string;
+  stats: { value: string; label: string }[];
 }) {
   return (
     <section
@@ -72,22 +74,19 @@ export function Hero({
 
         <motion.ul
           variants={item}
-          className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs text-muted sm:text-sm"
+          className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs text-muted sm:text-sm"
         >
-          {[
-            ['8', 'production systems'],
-            ['4', 'hackathon wins'],
-            ['Go · TS · NestJS', 'core stack'],
-          ].map(([value, label], i) => (
-            <li key={label} className="flex items-center gap-3">
+          {stats.map((s, i) => (
+            <li key={s.label} className="flex items-center gap-4">
               {i > 0 && (
-                <span aria-hidden className="text-neon-cyan/40">
-                  /
-                </span>
+                <span
+                  aria-hidden
+                  className="hidden h-3 w-px bg-white/15 sm:block"
+                />
               )}
               <span>
-                <span className="text-glow-cyan font-semibold">{value}</span>{' '}
-                <span>{label}</span>
+                <span className="font-semibold text-glow-cyan">{s.value}</span>{' '}
+                <span>{s.label}</span>
               </span>
             </li>
           ))}
