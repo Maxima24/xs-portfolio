@@ -17,25 +17,12 @@ const SPIN_S = 0.7; // ring spin duration
 const EASE = [0.22, 1, 0.36, 1] as const;
 const DISC = 72; // disc box size (px)
 
+// Monochrome: one accent per track via the CSS var (SVG stroke uses var directly).
 const accent = {
-  cyan: {
-    text: 'text-neon-cyan',
-    ring: 'border-neon-cyan shadow-glow-cyan',
-    stroke: '#00f0ff',
-    panel: 'before:bg-neon-cyan/10',
-  },
-  magenta: {
-    text: 'text-neon-magenta',
-    ring: 'border-neon-magenta shadow-glow-magenta',
-    stroke: '#ff00e5',
-    panel: 'before:bg-neon-magenta/10',
-  },
-  lime: {
-    text: 'text-neon-lime',
-    ring: 'border-neon-lime shadow-[0_0_8px_#aaff00,0_0_24px_rgba(170,255,0,0.4)]',
-    stroke: '#aaff00',
-    panel: 'before:bg-neon-lime/10',
-  },
+  text: 'text-accent',
+  ring: 'border-accent shadow-glow-accent',
+  stroke: 'rgb(var(--accent-rgb))',
+  panel: 'before:bg-accent/10',
 } as const;
 
 /** shortest signed step distance from active to i around the ring */
@@ -73,7 +60,7 @@ function Disc({
     angle,
     (a) => RADIUS * Math.sin(((baseAngle + a) * Math.PI) / 180),
   );
-  const na = accent[project.accent];
+  const na = accent;
 
   return (
     <motion.button
@@ -102,6 +89,8 @@ function Disc({
       <img
         src={`/projects/thumbs/${project.slug}.svg`}
         alt=""
+        width={DISC}
+        height={DISC}
         className="h-full w-full object-cover"
       />
     </motion.button>
@@ -135,12 +124,24 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
     [move, active, n],
   );
 
+  // Honor prefers-reduced-motion: disable auto-advance (the showcase already
+  // routes reduced-motion users to the static grid, but guard defensively so
+  // the component never auto-rotates for users who asked it not to).
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReduceMotion(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   // Auto-advance; restarts on every change, pauses on hover/focus.
   useEffect(() => {
-    if (paused || n <= 1) return;
+    if (paused || reduceMotion || n <= 1) return;
     const id = window.setTimeout(() => move(1), AUTO_MS);
     return () => window.clearTimeout(id);
-  }, [active, paused, n, move]);
+  }, [active, paused, reduceMotion, n, move]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight') {
@@ -153,7 +154,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
   };
 
   const current = projects[active];
-  const a = accent[current.accent];
+  const a = accent;
 
   return (
     <div
@@ -186,7 +187,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
             width: RADIUS * 2,
             height: RADIUS * 2,
             background:
-              'radial-gradient(circle, rgba(0,240,255,0.07), transparent 70%)',
+              'radial-gradient(circle, rgb(var(--accent-rgb) / 0.07), transparent 70%)',
           }}
         />
 
@@ -239,8 +240,10 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
             <img
               key={p.slug}
               src={p.image}
-              alt={i === active ? `${p.title} — cover` : ''}
+              alt={i === active ? `Cover illustration for ${p.title}` : ''}
               aria-hidden={i !== active}
+              width={1280}
+              height={720}
               className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
               style={{ opacity: i === active ? 1 : 0 }}
             />
@@ -299,18 +302,18 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
             type="button"
             onClick={prev}
             aria-label="Previous project"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-neon-cyan/50 hover:text-neon-cyan"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-accent/50 hover:text-accent"
           >
             <span aria-hidden>‹</span>
           </button>
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-            auto-rotating · hover to pause
+            {reduceMotion ? 'use arrows to browse' : 'auto-rotating · hover to pause'}
           </span>
           <button
             type="button"
             onClick={next}
             aria-label="Next project"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-neon-cyan/50 hover:text-neon-cyan"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-accent/50 hover:text-accent"
           >
             <span aria-hidden>›</span>
           </button>

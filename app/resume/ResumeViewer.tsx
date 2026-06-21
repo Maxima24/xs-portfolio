@@ -32,7 +32,7 @@ const SCALE_STEP = 0.15;
 function Spinner({ label }: { label: string }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-24 text-muted">
-      <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-neon-cyan" />
+      <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-accent" />
       <span className="font-mono text-xs uppercase tracking-[0.25em]">
         {label}
       </span>
@@ -51,7 +51,7 @@ function Fallback() {
         <a
           href={site.resumeFile}
           download="Faith-Popoola-Resume.pdf"
-          className="rounded-lg border border-neon-cyan/40 bg-neon-cyan/10 px-4 py-2 text-sm font-medium text-neon-cyan shadow-glow-cyan hover:bg-neon-cyan/20"
+          className="rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-medium text-accent shadow-glow-accent hover:bg-accent/20"
         >
           ↓ Download
         </a>
@@ -59,7 +59,7 @@ function Fallback() {
           href={site.resumeFile}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-lg border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/80 hover:border-neon-cyan/50 hover:text-neon-cyan"
+          className="rounded-lg border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/80 hover:border-accent/50 hover:text-accent"
         >
           Open in new tab ↗
         </a>
@@ -155,7 +155,7 @@ export default function ResumeViewer() {
               onClick={zoomOut}
               disabled={scale <= MIN_SCALE}
               aria-label="Zoom out"
-              className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/5 hover:text-neon-cyan disabled:opacity-30"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/5 hover:text-accent disabled:opacity-30"
             >
               −
             </button>
@@ -163,7 +163,7 @@ export default function ResumeViewer() {
               type="button"
               onClick={zoomReset}
               aria-label="Reset zoom"
-              className="min-w-[3.25rem] rounded-full px-2 font-mono text-xs text-white/70 transition-colors hover:text-neon-cyan"
+              className="min-w-[3.25rem] rounded-full px-2 font-mono text-xs text-white/70 transition-colors hover:text-accent"
             >
               {Math.round(scale * 100)}%
             </button>
@@ -172,7 +172,7 @@ export default function ResumeViewer() {
               onClick={zoomIn}
               disabled={scale >= MAX_SCALE}
               aria-label="Zoom in"
-              className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/5 hover:text-neon-cyan disabled:opacity-30"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/5 hover:text-accent disabled:opacity-30"
             >
               +
             </button>

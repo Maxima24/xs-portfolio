@@ -29,7 +29,7 @@ export const projects: Project[] = [
       'Sending money on Telegram without exchanging account details — peer-to-peer transfers that work even when two phones share only the air between them.',
     role: 'Architected and built the system end-to-end: ultrasonic token transmission, payments core, bots, and infrastructure.',
     outcome:
-      'HMAC-SHA256 signed tokens with Serializable-isolation transactions, deployed as a full Docker Compose stack on a VPS.',
+      'HMAC-SHA256-signed payment tokens transmitted over ultrasonic sound — no internet on the receiver — settled under Serializable isolation with an idempotent ledger, deployed as a full Docker Compose stack on a VPS.',
     stack: [
       'Go (whatsmeow)',
       'NestJS',
@@ -75,7 +75,7 @@ export const projects: Project[] = [
       'Informal traders in Nigeria run their businesses on WhatsApp and feature phones — they need an AI assistant that meets them on WhatsApp, USSD, and voice.',
     role: 'Owned the full technical architecture and build: a Go comms microservice fronting a NestJS core, with Gemini Live powering voice.',
     outcome:
-      'Built for the OPay × Google National Innovation Challenge 2026; multi-channel (WhatsApp / USSD / voice) from one core.',
+      'Multi-channel AI assistant (WhatsApp / USSD / voice) for informal traders — a Go comms microservice split from a NestJS core, with Google Gemini for language. Built for the OPay × Google National Innovation Challenge 2026.',
     stack: ['Go', 'NestJS', 'Google Gemini', 'Gemini Live', 'Docker Compose'],
     image: '/projects/owise.svg',
     links: [],
@@ -101,7 +101,7 @@ export const projects: Project[] = [
       'A multi-sided food-delivery marketplace needs three tightly-coupled mobile clients — consumer, vendor, and rider — kept in lockstep on a single release cadence.',
     role: 'Built all three React Native / Expo apps and owned the EAS build-and-release pipeline shipping to Google Play.',
     outcome:
-      'Shipped 3 production apps with a transactional-outbox notification system delivering exactly-once over FCM/APNs.',
+      "Shipped three production apps (consumer, vendor, rider) to Google Play across two Play Console accounts — FCM/APNs dual-channel order alerts and background-location live tracking that cleared Google's policy review. [NUM: orders/day or vendors]",
     stack: ['React Native', 'Expo', 'EAS', 'NestJS', 'Postgres', 'FCM/APNs'],
     image: '/projects/cargoland.svg',
     links: [],
@@ -125,12 +125,52 @@ export const projects: Project[] = [
     title: 'QuickBite',
     problem:
       'A food-delivery platform that needs reliable, production-grade payment collection from day one.',
-    role: 'Built the platform with a production Paystack integration handling live transactions end-to-end.',
-    outcome: 'Paystack payments live in production.',
-    stack: ['Next.js', 'NestJS', 'Paystack', 'Postgres'],
+    role: 'Took a NestJS food-delivery backend from code to live production solo — owned the AWS deploy, reverse proxy, DNS, and security hardening.',
+    outcome:
+      'AWS EC2 + Dockerized stack behind an Nginx reverse proxy and Cloudflare DNS, with security hardening (fail2ban + WAF) that blocked 142 bot intrusion attempts. Paystack payments live and verified end-to-end.',
+    stack: ['NestJS', 'AWS EC2', 'Docker', 'Nginx', 'Cloudflare', 'Paystack'],
     image: '/projects/quickbite.svg',
     links: [],
     accent: 'cyan',
+  },
+  {
+    slug: 'forge',
+    title: 'Forge',
+    problem:
+      'Informal construction workers have real, verifiable labor but no credit history a bank can read — so they stay locked out of financing.',
+    role: 'Built it solo for Squad Hackathon 3.0: a Flutter worker app with GPS/geotag proof-of-work, two Next.js dashboards, and the payments + KYC integrations behind them.',
+    outcome:
+      'A construction supply-chain fintech that turns verified labor transactions into bankable credit history for informal workers — Squad APIs for payments, Smile ID KYC — presented solo at Squad Hackathon 3.0.',
+    stack: ['Flutter', 'Next.js', 'Squad API', 'Smile ID', 'Postgres'],
+    image: '/projects/forge.svg',
+    links: [],
+    accent: 'cyan',
+  },
+  {
+    slug: 'synthsentry',
+    title: 'SynthSentry',
+    problem:
+      "Retail investors hold portfolios they can't actually read the risk of — exposure and synthetic-asset danger stay buried in raw numbers.",
+    role: 'Built the full tool at the Bayse Hackathon — holdings ingestion, the Gemini risk-reasoning layer, and the plain-language signal UI.',
+    outcome:
+      'An AI portfolio-risk tool on Google Gemini + the Bayse API — turning raw holdings into plain-language risk signals.',
+    stack: ['Next.js', 'Google Gemini', 'Bayse API', 'Python'],
+    image: '/projects/synthsentry.svg',
+    links: [],
+    accent: 'magenta',
+  },
+  {
+    slug: 'notification-service',
+    title: 'Distributed Notification Service',
+    problem:
+      'The reliability patterns behind production infrastructure — exactly-once delivery, backpressure, retries — are easy to name and hard to get right, so I am building them from the ground up.',
+    role: 'Designing and building it solo as a deep-dive into reliable infra: a Kafka broker, Redis rate-limiting, Postgres persistence, and channel workers with retry/backoff and dead-letter queues.',
+    outcome:
+      'Building a distributed notification system in Java/Spring Boot: Kafka broker, Redis rate-limiting, Postgres persistence, channel workers with retry/backoff, dead-letter queues, and idempotent delivery. A ground-up study in the systems patterns behind reliable infrastructure. [NUM: throughput target]',
+    stack: ['Java', 'Spring Boot', 'Kafka', 'Redis', 'Postgres'],
+    image: '/projects/notification-service.svg',
+    links: [],
+    accent: 'lime',
   },
 ];
 

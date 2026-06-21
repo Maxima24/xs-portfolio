@@ -15,14 +15,14 @@ const projects: Project[] = [
   fe(
     'cargoland',
     'Built all three React Native / Expo clients — consumer, vendor, and rider — on a shared component system, and owned the EAS build/release pipeline to Google Play.',
-    'Shipped 3 production apps with offline-aware UI and push-driven real-time updates.',
+    'Three production apps on the Play Store, offline-aware UI and push-driven real-time updates — a fix lands everywhere on one cadence.',
     ['React Native', 'Expo', 'EAS', 'TypeScript', 'React Navigation', 'FCM/APNs'],
   ),
   fe(
-    'payaza',
-    'Built the React Native NFC app and the Next.js web dashboard over a shared, typed API client.',
-    'Tap-to-pay + QR flows with Socket.IO live updates and a transparent token-refresh queue that replays in-flight requests.',
-    ['React Native', 'Next.js', 'TypeScript', 'Socket.IO', 'React Query', 'Tailwind'],
+    'forge',
+    'Built the Flutter worker app — GPS/geotag proof-of-work capture in the field — and two Next.js dashboards that run the whole supply chain.',
+    'Three coordinated frontends — a field mobile app and two web dashboards — shipped solo for Squad Hackathon 3.0.',
+    ['Flutter', 'Next.js', 'TypeScript', 'Tailwind', 'Squad API'],
   ),
   fe(
     'swifthum',
@@ -31,10 +31,10 @@ const projects: Project[] = [
     ['Next.js', 'TypeScript', 'Tailwind', 'Turborepo', 'aiogram'],
   ),
   fe(
-    'render-lite',
-    'Built the Next.js deployment dashboard — project creation, live build logs, and deploy status.',
-    'Type-safe dashboard in a Turborepo monorepo driving the orchestrator API.',
-    ['Next.js', 'TypeScript', 'Tailwind', 'Turborepo', 'Prisma'],
+    'synthsentry',
+    'Built the risk-signal interface that turns a raw portfolio into a plain-language read on exposure.',
+    'A legible UI over a Gemini risk model — built at the Bayse Hackathon.',
+    ['Next.js', 'TypeScript', 'Tailwind', 'Gemini'],
   ),
   fe(
     'quickbite',
@@ -66,7 +66,7 @@ const techDepth: TechDepthItem[] = [
   {
     title: 'Performance-budgeted WebGL',
     context: 'This portfolio',
-    body: 'The 3D hero is dynamically imported (never blocking SSR), caps device-pixel-ratio, and swaps to a static neon gradient under prefers-reduced-motion or on mobile — keeping interaction smooth and the Lighthouse budget intact.',
+    body: 'The 3D hero is dynamically imported (never blocking SSR), caps device-pixel-ratio, and swaps to a static accent gradient under prefers-reduced-motion or on mobile — keeping interaction smooth and the Lighthouse budget intact.',
     tags: ['Dynamic import', 'dpr cap', 'Reduced-motion'],
   },
 ];
@@ -75,9 +75,9 @@ export const frontend: TrackContent = {
   key: 'frontend',
   label: 'Frontend Engineer',
   hero: {
-    role: 'Frontend Engineer & Frontend Lead @ PortalHq · Computer Engineering @ OAU',
+    role: 'Frontend Engineer & Frontend Lead @ PortalHq',
     valueProp:
-      "I build fast, accessible interfaces and cross-platform apps end-to-end — React, Next.js, and React Native — with real-time UX and a designer's eye for detail.",
+      "I build interfaces that ship to real users — three production apps on the Play Store, and the motion-heavy UI you're reading right now.",
   },
   coreStack: 'React · Next.js · TS',
   projectsIntro:
@@ -89,23 +89,16 @@ export const frontend: TrackContent = {
   about: {
     lead: (
       <>
-        I&apos;m a frontend engineer who likes owning the interface end-to-end —
-        from design tokens to the network layer. I&apos;ve been{' '}
-        <span className="text-glow-cyan">Frontend Lead @ PortalHq</span> since
-        August 2024, and I study{' '}
-        <span className="text-white">
-          Computer Engineering at Obafemi Awolowo University (OAU)
-        </span>{' '}
-        (graduating 2028), based in Nigeria.
+        Faith Popoola — full-stack engineer and{' '}
+        <span className="text-accent">Frontend Lead at PortalHq</span> since
+        August 2024.
       </>
     ),
     body: (
       <>
-        I build with React, Next.js, and React Native: cross-platform apps,
-        real-time dashboards, and checkout flows that stay fast and trustworthy on
-        flaky mobile networks. I care about the details — accessibility, motion,
-        optimistic UI, and performance budgets — that make an interface feel
-        effortless.
+        I build interfaces real people use — the Cargoland consumer, vendor, and
+        rider apps are all in production, and I sweat the details on motion,
+        performance, and feel (this site included). At PortalHq I lead frontend.
       </>
     ),
     stack: [

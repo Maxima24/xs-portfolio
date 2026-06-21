@@ -16,18 +16,20 @@ export function Footer() {
         <div
           aria-hidden
           className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-30 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #00f0ff, transparent 70%)' }}
+          style={{
+            background: 'radial-gradient(circle, var(--accent), transparent 70%)',
+          }}
         />
-        <span className="font-mono text-xs uppercase tracking-[0.3em] text-neon-cyan/80">
+        <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
           05 // get in touch
         </span>
         <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
           Let&apos;s build something that ships.
         </h2>
         <p className="mt-4 max-w-xl text-white/65">
-          I&apos;m looking for SWE internship opportunities. The fastest way to
-          reach me is email — happy to talk systems, fintech, or anything you&apos;re
-          building.
+          I build production fintech and platform systems end-to-end. I&apos;m
+          open to software-engineering roles with ambitious teams worldwide —
+          remote or relocation. The fastest way to reach me is email.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -44,7 +46,7 @@ export function Footer() {
       <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-sm text-muted sm:flex-row">
         <p>
           © {year}{' '}
-          <span className="font-mono text-glow-cyan">Faith Popoola</span>. Built
+          <span className="font-mono text-glow-accent">Faith Popoola</span>. Built
           with Next.js, Three.js &amp; Tailwind.
         </p>
         <a href="#top" className="nav-underline hover:text-white">

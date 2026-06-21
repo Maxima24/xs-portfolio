@@ -2,11 +2,8 @@ import { hackathons, hackathonsIntro } from '@/data/hackathons';
 import { Section, SectionHeading } from './Section';
 import { Chip } from './Chip';
 
-const accentText = {
-  cyan: 'text-neon-cyan border-neon-cyan/40',
-  magenta: 'text-neon-magenta border-neon-magenta/40',
-  lime: 'text-neon-lime border-neon-lime/40',
-} as const;
+// Monochrome: status badges use the single track accent.
+const accentText = 'text-accent border-accent/40';
 
 export function Hackathons() {
   return (
@@ -26,7 +23,7 @@ export function Hackathons() {
             <div className="flex items-center justify-between gap-3">
               <h3 className="font-semibold text-white">{h.project}</h3>
               <span
-                className={`shrink-0 rounded-full border px-2.5 py-1 font-mono text-[11px] ${accentText[h.accent]}`}
+                className={`shrink-0 rounded-full border px-2.5 py-1 font-mono text-[11px] ${accentText}`}
               >
                 {h.status}
               </span>

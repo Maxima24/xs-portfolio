@@ -48,7 +48,7 @@ export function SectionHeading({
 }) {
   return (
     <div className="mb-10 flex flex-col gap-3">
-      <span className="font-mono text-xs uppercase tracking-[0.3em] text-neon-cyan/80">
+      <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
         <span className="text-muted">{index}</span> {'//'} {kicker}
       </span>
       <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">

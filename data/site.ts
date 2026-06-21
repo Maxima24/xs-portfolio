@@ -22,9 +22,9 @@ const SITE_URL =
 export const site = {
   name: 'Faith Popoola',
   handle: 'XS',
-  role: 'Full-stack Engineer & Frontend Lead @ PortalHq · Computer Engineering @ OAU',
+  role: 'Full-stack Engineer & Frontend Lead @ PortalHq',
   valueProp:
-    'I design and ship production fintech and platform systems end-to-end — from React Native apps to Go microservices — with an eye for distributed-systems correctness.',
+    'I ship full products end-to-end — from Postgres schema to AWS deploy — and own the outcome, not just the ticket.',
   location: 'Nigeria',
   email: 'steelmaxim80@gmail.com',
   resumeUrl: '/resume', // in-site viewer page

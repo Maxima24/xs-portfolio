@@ -22,8 +22,11 @@ export function Portfolio({ content }: { content: TrackContent }) {
   ];
   return (
     <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Nav />
-      <main>
+      <main id="main">
         <Hero
           role={content.hero.role}
           valueProp={content.hero.valueProp}

@@ -37,7 +37,7 @@ export function Nav() {
       >
         <a
           href="#top"
-          className="font-mono text-xl font-bold tracking-widest text-glow-cyan"
+          className="font-mono text-xl font-bold tracking-widest text-glow-accent"
           aria-label="Home — XS"
         >
           XS
@@ -59,7 +59,7 @@ export function Nav() {
           </ul>
           <Link
             href={site.resumeUrl}
-            className="rounded-lg border border-neon-cyan/40 bg-neon-cyan/10 px-4 py-2 text-sm font-medium text-neon-cyan shadow-glow-cyan transition-all hover:-translate-y-0.5 hover:bg-neon-cyan/20 hover:shadow-glow-cyan-lg"
+            className="rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-medium text-accent shadow-glow-accent transition-all hover:-translate-y-0.5 hover:bg-accent/20 hover:shadow-glow-accent-lg"
           >
             Resume
           </Link>
@@ -108,7 +108,7 @@ export function Nav() {
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-3 text-base text-white/80 transition-colors hover:bg-white/5 hover:text-neon-cyan"
+                  className="block rounded-lg px-3 py-3 text-base text-white/80 transition-colors hover:bg-white/5 hover:text-accent"
                 >
                   {l.label}
                 </a>
@@ -118,7 +118,7 @@ export function Nav() {
               <Link
                 href={site.resumeUrl}
                 onClick={() => setOpen(false)}
-                className="mt-2 block rounded-lg border border-neon-cyan/40 bg-neon-cyan/10 px-3 py-3 text-center text-base font-medium text-neon-cyan"
+                className="mt-2 block rounded-lg border border-accent/40 bg-accent/10 px-3 py-3 text-center text-base font-medium text-accent"
               >
                 Resume
               </Link>

@@ -8,7 +8,7 @@ const ResumeViewer = dynamic(() => import('./ResumeViewer'), {
   ssr: false,
   loading: () => (
     <div className="flex flex-1 items-center justify-center py-24 text-muted">
-      <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-neon-cyan" />
+      <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-accent" />
     </div>
   ),
 });

@@ -1,29 +1,15 @@
 import type { Project } from '@/data/projects';
 import { Chip } from './Chip';
 
-const accentMap = {
-  cyan: {
-    border: 'hover:border-neon-cyan/60',
-    glow: 'hover:shadow-glow-cyan-lg',
-    text: 'text-neon-cyan',
-    ring: 'group-hover:ring-neon-cyan/40',
-  },
-  magenta: {
-    border: 'hover:border-neon-magenta/60',
-    glow: 'hover:shadow-glow-magenta',
-    text: 'text-neon-magenta',
-    ring: 'group-hover:ring-neon-magenta/40',
-  },
-  lime: {
-    border: 'hover:border-neon-lime/60',
-    glow: 'hover:shadow-[0_0_8px_#aaff00,0_0_32px_rgba(170,255,0,0.4)]',
-    text: 'text-neon-lime',
-    ring: 'group-hover:ring-neon-lime/40',
-  },
-} as const;
+// Monochrome: one accent per track (driven by the CSS var), not per project.
+const a = {
+  border: 'hover:border-accent/60',
+  glow: 'hover:shadow-glow-accent-lg',
+  text: 'text-accent',
+  ring: 'group-hover:ring-accent/40',
+};
 
 export function ProjectCard({ project }: { project: Project }) {
-  const a = accentMap[project.accent];
 
   return (
     <article
@@ -33,8 +19,10 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="relative aspect-[16/9] overflow-hidden border-b border-white/10">
         <img
           src={project.image}
-          alt={`${project.title} — neon cover art`}
+          alt={`Cover illustration for ${project.title}`}
           loading="lazy"
+          width={1280}
+          height={720}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div

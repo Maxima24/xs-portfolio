@@ -26,7 +26,7 @@ export function TechnicalDepth({
             key={d.title}
             className="surface relative flex flex-col gap-3 rounded-xl p-6"
           >
-            <span className="font-mono text-xs text-neon-cyan/70">
+            <span className="font-mono text-xs text-accent/70">
               0{i + 1} · {d.context}
             </span>
             <h3 className="text-lg font-semibold leading-snug text-white">

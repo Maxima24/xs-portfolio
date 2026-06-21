@@ -16,7 +16,7 @@ export function About({ about }: { about: AboutContent }) {
           <p className="leading-relaxed text-white/65">{about.body}</p>
 
           <div className="pt-2">
-            <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-neon-cyan/80">
+            <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent/80">
               Interests
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -29,7 +29,7 @@ export function About({ about }: { about: AboutContent }) {
 
         <div className="lg:col-span-2">
           <div className="surface rounded-xl p-6">
-            <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-neon-magenta/80">
+            <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-accent2/80">
               Tech Stack
             </h3>
             <div className="flex flex-wrap gap-2">

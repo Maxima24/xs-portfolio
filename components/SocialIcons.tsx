@@ -42,7 +42,7 @@ export function SocialIcons({ socials, className = '' }: SocialIconsProps) {
             title={s.label}
             target={isPlaceholder ? undefined : '_blank'}
             rel={isPlaceholder ? undefined : 'noopener noreferrer'}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-white/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-neon-cyan/50 hover:text-neon-cyan hover:shadow-glow-cyan"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-white/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-glow-accent"
           >
             <Icon name={s.icon} />
           </a>

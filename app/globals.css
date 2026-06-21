@@ -2,8 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Per-track accent system ───────────────────────────────────────────────
+   body[data-track] is set in app/layout.tsx from PORTFOLIO_TRACK. Defaults to
+   general (cyan). All chrome reads var(--accent*); the Tailwind `accent` color
+   maps to --accent-rgb. One accent per track, used for highlights only. */
 :root {
-  --bg: #0a0a0f;
+  --bg: #0b0a0d;
+  --accent: #00f0ff;
+  --accent-rgb: 0 240 255;
+  --accent-2: #7af9ff;
+  --accent-2-rgb: 122 249 255;
+}
+body[data-track='frontend'] {
+  --accent: #ff00e5;
+  --accent-rgb: 255 0 229;
+  --accent-2: #ff7ae6;
+  --accent-2-rgb: 255 122 230;
+}
+body[data-track='backend'] {
+  --accent: #aaff00;
+  --accent-rgb: 170 255 0;
+  --accent-2: #d6ff7a;
+  --accent-2-rgb: 214 255 122;
 }
 
 * {
@@ -22,7 +42,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Subtle ambient backdrop: neon grid + radial glows behind everything */
+/* Ambient backdrop: two soft accent glows (subtle — depth, not neon overload) */
 body::before {
   content: '';
   position: fixed;
@@ -31,63 +51,110 @@ body::before {
   pointer-events: none;
   background:
     radial-gradient(
-      60rem 40rem at 75% -10%,
-      rgba(0, 240, 255, 0.1),
+      60rem 40rem at 78% -12%,
+      rgb(var(--accent-rgb) / 0.08),
       transparent 60%
     ),
     radial-gradient(
-      50rem 35rem at 10% 110%,
-      rgba(255, 0, 229, 0.09),
+      50rem 35rem at 8% 112%,
+      rgb(var(--accent-2-rgb) / 0.05),
       transparent 60%
     );
 }
 
 @layer base {
   ::selection {
-    background: rgba(0, 240, 255, 0.25);
+    background: rgb(var(--accent-rgb) / 0.22);
     color: #ffffff;
   }
 
-  /* Neon focus ring for keyboard users */
+  /* Accent focus ring for keyboard users */
   :focus-visible {
-    outline: 2px solid #00f0ff;
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
     border-radius: 4px;
   }
 
-  /* Thin neon scrollbar */
+  /* Skip-to-content link: off-screen until focused, then pinned top-left. */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-150%);
+    border-radius: 0.5rem;
+    border: 1px solid var(--accent);
+    background: var(--bg);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent);
+    transition: transform 0.2s ease;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skip-link {
+      transition: none;
+    }
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0a0f;
+    background: var(--bg);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(#00f0ff, #ff00e5);
+    background: linear-gradient(var(--accent), var(--accent-2));
     border-radius: 999px;
-    border: 2px solid #0a0a0f;
+    border: 2px solid var(--bg);
+    opacity: 0.8;
+  }
+
+  /* ── Per-track typography posture ────────────────────────────────────────
+     general = baseline (calm). frontend = larger display headings + airier
+     leading. backend = mono-forward headings, tighter tracking, denser. */
+  body[data-track='frontend'] h1 {
+    letter-spacing: -0.03em;
+  }
+  body[data-track='frontend'] h2 {
+    font-size: clamp(2rem, 1.4rem + 2.6vw, 2.75rem);
+    letter-spacing: -0.02em;
+  }
+  body[data-track='frontend'] p {
+    line-height: 1.7;
+  }
+  body[data-track='backend'] h1,
+  body[data-track='backend'] h2,
+  body[data-track='backend'] h3 {
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    letter-spacing: -0.01em;
+  }
+  body[data-track='backend'] p {
+    line-height: 1.55;
   }
 }
 
 @layer components {
-  /* Neon text glow helpers */
-  .text-glow-cyan {
-    color: #d6feff;
+  /* Accent text glow — reserve for 1–2 hero moments, not body copy */
+  .text-glow-accent {
+    color: #f1f6ff;
     text-shadow:
-      0 0 6px rgba(0, 240, 255, 0.8),
-      0 0 22px rgba(0, 240, 255, 0.45);
-  }
-  .text-glow-magenta {
-    color: #ffd6f8;
-    text-shadow:
-      0 0 6px rgba(255, 0, 229, 0.8),
-      0 0 22px rgba(255, 0, 229, 0.45);
+      0 0 5px rgb(var(--accent-rgb) / 0.7),
+      0 0 18px rgb(var(--accent-rgb) / 0.35);
   }
 
-  /* Gradient neon headline text */
-  .text-gradient-neon {
-    background: linear-gradient(92deg, #00f0ff 0%, #7af9ff 35%, #ff00e5 100%);
+  /* Headline gradient: accent → accent-2 (monochromatic per track) */
+  .text-gradient-accent {
+    background: linear-gradient(
+      92deg,
+      var(--accent) 0%,
+      var(--accent-2) 60%,
+      #ffffff 130%
+    );
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -95,15 +162,18 @@ body::before {
     color: transparent;
   }
 
-  /* Card surface used across sections */
+  /* Elevated glass surface — warm, with depth */
   .surface {
-    background:
-      linear-gradient(180deg, rgba(20, 20, 31, 0.85), rgba(15, 15, 23, 0.85));
+    background: linear-gradient(
+      180deg,
+      rgba(28, 26, 36, 0.82),
+      rgba(19, 18, 24, 0.82)
+    );
     border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(8px);
   }
 
-  /* Animated neon underline for nav links */
+  /* Animated accent underline for nav links */
   .nav-underline {
     position: relative;
   }
@@ -116,8 +186,8 @@ body::before {
     width: 100%;
     transform: scaleX(0);
     transform-origin: left;
-    background: linear-gradient(90deg, #00f0ff, #ff00e5);
-    box-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 6px rgb(var(--accent-rgb) / 0.5);
     transition: transform 0.28s ease;
   }
   .nav-underline:hover::after,
@@ -137,5 +207,39 @@ body::before {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+/* ── StaticHeroBackdrop: backend-track structural treatment ─────────────────
+   Moved out of an inline <style> in the component — inline <style> text with
+   apostrophes (data-track='backend') gets HTML-escaped differently in SSR vs
+   the client and triggers a hydration mismatch. Lives here as plain CSS. */
+.static-hero-backdrop .shb-nodes {
+  display: none;
+}
+body[data-track='backend'] .static-hero-backdrop .shb-grid {
+  background-size: 30px 30px;
+  opacity: 0.5;
+}
+body[data-track='backend'] .static-hero-backdrop .shb-nodes {
+  display: block;
+}
+body[data-track='backend'] .static-hero-backdrop .shb-orb {
+  opacity: 0.4;
+}
+
+/* ── IsometricMap (Work section) data-flow + node-float keyframes ──────────── */
+@keyframes isoFlow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes isoFloat {
+  0%,
+  100% {
+    transform: translateZ(0);
+  }
+  50% {
+    transform: translateZ(10px);
   }
 }

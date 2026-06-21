@@ -1,14 +1,22 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { site, socials } from '@/data/site';
 import { HeroSceneClient } from './HeroSceneClient';
 import { GlowButton } from './GlowButton';
 import { SocialIcons } from './SocialIcons';
+import { useClientEnv } from './useClientEnv';
 
 const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  // Slides the whole intro out to the left once the user engages the 3D scene.
+  gone: {
+    x: '-110%',
+    opacity: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 const item = {
   hidden: { opacity: 0, y: 20 },
@@ -24,14 +32,31 @@ export function Hero({
   valueProp: string;
   stats: { value: string; label: string }[];
 }) {
+  // The hero section is the pointer event-source for the 3D canvas (which is
+  // itself pointer-events:none so the headline/buttons stay clickable).
+  const heroRef = useRef<HTMLElement>(null);
+  const { canRender3D } = useClientEnv();
+  const [gone, setGone] = useState(false);
+
+  // Slide the intro out of the way once the user starts interacting with the 3D
+  // scene — desktop+3D only, and never when they're pressing a control
+  // (View Work / Resume / socials), which stay usable.
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (!canRender3D || gone) return;
+    if ((e.target as HTMLElement).closest('a,button')) return;
+    setGone(true);
+  };
+
   return (
     <section
       id="top"
+      ref={heroRef}
+      onPointerDown={handlePointerDown}
       className="relative flex min-h-[100svh] items-center overflow-hidden"
     >
       {/* 3D / static neon backdrop */}
       <div className="absolute inset-0 -z-10">
-        <HeroSceneClient />
+        <HeroSceneClient eventSourceRef={heroRef} />
         {/* readability gradient over the canvas */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink" />
       </div>
@@ -39,15 +64,17 @@ export function Hero({
       <motion.div
         variants={container}
         initial="hidden"
-        animate="show"
-        className="mx-auto w-full max-w-6xl px-5 pt-24 sm:px-8"
+        animate={gone ? 'gone' : 'show'}
+        className={`mx-auto w-full max-w-6xl px-5 pt-24 sm:px-8 ${
+          gone ? 'pointer-events-none' : ''
+        }`}
       >
         <motion.p
           variants={item}
-          className="mb-5 font-mono text-sm tracking-[0.25em] text-neon-cyan/90"
+          className="mb-5 font-mono text-sm tracking-[0.25em] text-accent/90"
         >
           <span className="text-muted">{'>'}</span> HI, I&apos;M{' '}
-          <span className="text-glow-cyan">{site.handle}</span>
+          <span className="text-glow-accent">{site.handle}</span>
         </motion.p>
 
         <motion.h1
@@ -55,7 +82,7 @@ export function Hero({
           className="max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight sm:text-7xl"
         >
           <span className="text-white">Faith </span>
-          <span className="text-gradient-neon">Popoola</span>
+          <span className="text-gradient-accent">Popoola</span>
         </motion.h1>
 
         <motion.p
@@ -85,7 +112,7 @@ export function Hero({
                 />
               )}
               <span>
-                <span className="font-semibold text-glow-cyan">{s.value}</span>{' '}
+                <span className="font-semibold text-glow-accent">{s.value}</span>{' '}
                 <span>{s.label}</span>
               </span>
             </li>
@@ -109,16 +136,6 @@ export function Hero({
           <SocialIcons socials={socials} className="ml-1" />
         </motion.div>
       </motion.div>
-
-      {/* scroll cue */}
-      <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2">
-        <div className="flex flex-col items-center gap-2 text-muted">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em]">
-            Scroll
-          </span>
-          <span className="h-8 w-px animate-pulse-glow bg-gradient-to-b from-neon-cyan to-transparent" />
-        </div>
-      </div>
     </section>
   );
 }

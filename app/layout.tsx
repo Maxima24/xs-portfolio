@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { site, socials } from '@/data/site';
+import { getActiveTrack } from '@/data/tracks';
+import { trackSeo } from '@/data/tracks/seo';
 import './globals.css';
+
+// The portfolio this deployment serves (PORTFOLIO_TRACK) drives the structured
+// data so jobTitle/description match the active track, not a hardcoded general.
+const activeTrack = getActiveTrack();
 
 // Structured data for Google. sameAs lists only real (non-placeholder) profiles.
 const personJsonLd = {
@@ -11,14 +17,9 @@ const personJsonLd = {
   alternateName: site.handle,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: 'Software Engineer',
-  description:
-    'Full-stack engineer & Frontend Lead @ PortalHq building production fintech and platform systems end-to-end.',
+  jobTitle: activeTrack.label,
+  description: trackSeo[activeTrack.key].description,
   worksFor: { '@type': 'Organization', name: 'PortalHq' },
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'Obafemi Awolowo University (OAU)',
-  },
   knowsAbout: [
     'Distributed Systems',
     'Fintech Infrastructure',
@@ -67,7 +68,6 @@ export const metadata: Metadata = {
     'Go',
     'Distributed Systems',
     'Fintech',
-    'OAU',
   ],
   authors: [{ name: 'Faith Popoola' }],
   creator: 'Faith Popoola',
@@ -96,12 +96,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // data-track drives the per-track accent + typography posture (globals.css).
   return (
     <html
       lang="en"
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" data-track={activeTrack.key}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

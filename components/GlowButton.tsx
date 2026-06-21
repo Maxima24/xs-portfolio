@@ -5,13 +5,15 @@ type Variant = 'primary' | 'secondary' | 'ghost';
 const base =
   'group inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium tracking-wide transition-all duration-200 focus-visible:outline-none';
 
+// Monochrome per track (single accent), with hierarchy: primary = filled-tint
+// + glow, secondary = outline, ghost = neutral with accent hover.
 const variants: Record<Variant, string> = {
   primary:
-    'bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/40 shadow-glow-cyan hover:bg-neon-cyan/20 hover:shadow-glow-cyan-lg hover:-translate-y-0.5',
+    'bg-accent/15 text-accent border border-accent/50 shadow-glow-accent hover:bg-accent/25 hover:shadow-glow-accent-lg hover:-translate-y-0.5',
   secondary:
-    'bg-neon-magenta/10 text-neon-magenta border border-neon-magenta/40 shadow-glow-magenta hover:bg-neon-magenta/20 hover:-translate-y-0.5',
+    'bg-transparent text-accent border border-accent/30 hover:bg-accent/10 hover:border-accent/50 hover:-translate-y-0.5',
   ghost:
-    'bg-white/[0.03] text-white/80 border border-white/12 hover:border-neon-cyan/50 hover:text-neon-cyan hover:-translate-y-0.5',
+    'bg-white/[0.03] text-white/80 border border-white/12 hover:border-accent/50 hover:text-accent hover:-translate-y-0.5',
 };
 
 interface GlowButtonProps {

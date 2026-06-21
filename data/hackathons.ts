@@ -37,7 +37,7 @@ export const hackathons: Hackathon[] = [
     accent: 'cyan',
   },
   {
-    event: 'OAU × Bayse Hackathon',
+    event: 'Bayse Hackathon',
     project: 'SynthSentry',
     status: 'Built & presented',
     built: 'AI portfolio-risk tool surfacing exposure and synthetic-asset risk signals.',

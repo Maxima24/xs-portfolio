@@ -19,14 +19,14 @@ export default function ResumePage() {
         <div className="flex items-center gap-4">
           <Link
             href="/"
-            className="nav-underline inline-flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-neon-cyan"
+            className="nav-underline inline-flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-accent"
           >
             <span aria-hidden>←</span> Back to portfolio
           </Link>
           <span aria-hidden className="text-white/15">
             |
           </span>
-          <h1 className="font-mono text-sm uppercase tracking-[0.3em] text-glow-cyan">
+          <h1 className="font-mono text-sm uppercase tracking-[0.3em] text-glow-accent">
             Résumé
           </h1>
         </div>
@@ -35,7 +35,7 @@ export default function ResumePage() {
           <a
             href={site.resumeFile}
             download={downloadName}
-            className="group inline-flex items-center justify-center gap-2 rounded-lg border border-neon-cyan/40 bg-neon-cyan/10 px-4 py-2 text-sm font-medium text-neon-cyan shadow-glow-cyan transition-all duration-200 hover:-translate-y-0.5 hover:bg-neon-cyan/20 hover:shadow-glow-cyan-lg"
+            className="group inline-flex items-center justify-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-medium text-accent shadow-glow-accent transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent/20 hover:shadow-glow-accent-lg"
           >
             <span aria-hidden>↓</span> Download PDF
           </a>
@@ -43,7 +43,7 @@ export default function ResumePage() {
             href={site.resumeFile}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-neon-cyan/50 hover:text-neon-cyan"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
           >
             Open in new tab <span aria-hidden>↗</span>
           </a>
@@ -59,7 +59,7 @@ export default function ResumePage() {
         <a
           href={site.resumeFile}
           download={downloadName}
-          className="text-neon-cyan underline-offset-4 hover:underline"
+          className="text-accent underline-offset-4 hover:underline"
         >
           Download the PDF
         </a>{' '}
@@ -68,7 +68,7 @@ export default function ResumePage() {
           href={site.resumeFile}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-neon-cyan underline-offset-4 hover:underline"
+          className="text-accent underline-offset-4 hover:underline"
         >
           open it in a new tab
         </a>
