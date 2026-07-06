@@ -3,11 +3,13 @@ import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { site, socials } from '@/data/site';
 import { getActiveTrack } from '@/data/tracks';
 import { trackSeo } from '@/data/tracks/seo';
+import { MotionProvider } from '@/components/MotionProvider';
 import './globals.css';
 
 // The portfolio this deployment serves (PORTFOLIO_TRACK) drives the structured
 // data so jobTitle/description match the active track, not a hardcoded general.
 const activeTrack = getActiveTrack();
+const seo = trackSeo[activeTrack.key];
 
 // Structured data for Google. sameAs lists only real (non-placeholder) profiles.
 const personJsonLd = {
@@ -18,8 +20,10 @@ const personJsonLd = {
   url: site.url,
   email: `mailto:${site.email}`,
   jobTitle: activeTrack.label,
-  description: trackSeo[activeTrack.key].description,
-  worksFor: { '@type': 'Organization', name: 'PortalHq' },
+  description: seo.description,
+  // TODO(owner): PortalHq (prior role) was removed per "QuickBite is the truth". If it should still
+  // appear as prior experience, add it back via an alumniOf / separate Organization entry, not worksFor.
+  worksFor: { '@type': 'Organization', name: 'QuickBite' },
   knowsAbout: [
     'Distributed Systems',
     'Fintech Infrastructure',
@@ -55,19 +59,20 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: 'Faith Popoola | Software Engineer',
-  description:
-    'Faith "XS" Popoola — Full-stack engineer & Frontend Lead @ PortalHq. I build production fintech and platform systems end-to-end: React Native, NestJS, Go, distributed systems.',
+  // Title/description follow the active track's SEO so meta stays consistent with the page
+  // and no stale identity (PortalHq) lingers in one place after being fixed in another.
+  title: seo.title,
+  description: seo.description,
   keywords: [
     'Faith Popoola',
     'Software Engineer',
-    'Full-stack Engineer',
-    'Frontend Lead',
+    'Backend Engineer',
+    'Distributed Systems',
+    'Fintech Infrastructure',
     'React Native',
     'NestJS',
     'Go',
-    'Distributed Systems',
-    'Fintech',
+    'QuickBite',
   ],
   authors: [{ name: 'Faith Popoola' }],
   creator: 'Faith Popoola',
@@ -78,16 +83,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: site.url,
-    title: 'Faith Popoola | Software Engineer',
-    description:
-      'Full-stack engineer & Frontend Lead @ PortalHq. Production fintech and platform systems, end-to-end.',
+    title: seo.title,
+    description: seo.description,
     siteName: 'Faith Popoola',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Faith Popoola | Software Engineer',
-    description:
-      'Full-stack engineer & Frontend Lead @ PortalHq. Production fintech and platform systems, end-to-end.',
+    title: seo.title,
+    description: seo.description,
   },
 };
 
@@ -107,7 +110,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

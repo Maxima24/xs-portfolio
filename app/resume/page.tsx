@@ -6,7 +6,7 @@ import { ResumeViewerClient } from './ResumeViewerClient';
 export const metadata: Metadata = {
   title: 'Résumé | Faith Popoola',
   description:
-    'Résumé of Faith "XS" Popoola — Software Engineer & Frontend Lead @ PortalHq. View in-browser or download the PDF.',
+    'Résumé of Faith "XS" Popoola — Backend & Distributed-Systems Engineer, Founder / Backend Engineer @ QuickBite. View in-browser or download the PDF.',
 };
 
 const downloadName = 'Faith-Popoola-Resume.pdf';

@@ -5,6 +5,8 @@ export interface TechDepthItem {
   /** 2-3 sentences, no fluff — demonstrate systems thinking */
   body: string;
   tags: string[];
+  /** P1.3: optional link to a full write-up (/writing/[slug] or external) */
+  href?: string;
 }
 
 export const techDepth: TechDepthItem[] = [
@@ -13,6 +15,7 @@ export const techDepth: TechDepthItem[] = [
     context: 'SwiftHum · Notification Service',
     body: "SwiftHum's ledger uses HMAC-signed tokens with Serializable isolation so a replayed or duplicated transfer can never double-spend — the same discipline as the notification service's dedup layer.",
     tags: ['Serializable isolation', 'HMAC tokens', 'Idempotency'],
+    href: '/writing/balances-authoritative-node',
   },
   {
     title: 'Service boundaries on purpose',
@@ -25,5 +28,6 @@ export const techDepth: TechDepthItem[] = [
     context: 'Distributed Notification Service',
     body: 'The notification system applies the patterns that keep infra up: retry with exponential backoff, dead-letter queues, and at-least-once delivery made safe by idempotency.',
     tags: ['Retry / backoff', 'Dead-letter queues', 'At-least-once'],
+    href: '/writing/exactly-once-push-outbox',
   },
 ];

@@ -4,7 +4,7 @@ import { GlowButton } from './GlowButton';
 import { SocialIcons } from './SocialIcons';
 
 export function Footer() {
-  const year = 2026; // build-time constant; bump in source as needed
+  const year = new Date().getFullYear(); // evaluated at build/render — no manual bumping
 
   return (
     <Section

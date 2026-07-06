@@ -75,7 +75,7 @@ export const frontend: TrackContent = {
   key: 'frontend',
   label: 'Frontend Engineer',
   hero: {
-    role: 'Frontend Engineer & Frontend Lead @ PortalHq',
+    role: 'Frontend Engineer',
     valueProp:
       "I build interfaces that ship to real users — three production apps on the Play Store, and the motion-heavy UI you're reading right now.",
   },
@@ -89,16 +89,17 @@ export const frontend: TrackContent = {
   about: {
     lead: (
       <>
-        Faith Popoola — full-stack engineer and{' '}
-        <span className="text-accent">Frontend Lead at PortalHq</span> since
-        August 2024.
+        Faith Popoola —{' '}
+        <span className="text-accent">frontend engineer</span> building
+        interfaces real people use.
       </>
     ),
+    // TODO(owner): relocate PortalHq (prior Frontend Lead, since Aug 2024) to a dedicated Experience entry — real ~2yr tenure, don't lose it
     body: (
       <>
         I build interfaces real people use — the Cargoland consumer, vendor, and
         rider apps are all in production, and I sweat the details on motion,
-        performance, and feel (this site included). At PortalHq I lead frontend.
+        performance, and feel (this site included).
       </>
     ),
     stack: [

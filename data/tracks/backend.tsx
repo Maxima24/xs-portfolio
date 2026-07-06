@@ -22,20 +22,30 @@ const forgeBackend: Project = {
   stack: ['NestJS', 'Squad API', 'Smile ID', 'Postgres'],
 };
 
+// The notification service is an in-progress distributed-systems study, not a
+// shipped product — label it honestly so it never reads as a production headline.
+const notificationServiceBuilding: Project = {
+  ...projectsById['notification-service'],
+  role: `Currently building — ${projectsById['notification-service'].role}`,
+};
+
+// Lead with deployed, user-facing production systems (QuickBite live on Paystack,
+// Cargoland live on the Play Store, SwiftHum live on a VPS), then builds, then the
+// in-progress notification service last.
 const projects: Project[] = [
-  projectsById['notification-service'],
+  projectsById['quickbite'],
+  cargolandBackend,
   projectsById['swifthum'],
   projectsById['owise'],
-  cargolandBackend,
-  projectsById['quickbite'],
   forgeBackend,
+  notificationServiceBuilding,
 ];
 
 export const backend: TrackContent = {
   key: 'backend',
   label: 'Backend & Distributed-Systems Engineer',
   hero: {
-    role: 'Backend & Distributed-Systems Engineer · Frontend Lead @ PortalHq',
+    role: 'Backend & Distributed-Systems Engineer · Founder @ QuickBite',
     valueProp:
       'I build systems that stay up as they scale — message queues, idempotent ledgers, hardened production deploys.',
   },
@@ -49,9 +59,12 @@ export const backend: TrackContent = {
   about: {
     lead: (
       <>
-        Faith Popoola — full-stack engineer and{' '}
-        <span className="text-accent">Frontend Lead at PortalHq</span> since
-        August 2024.
+        Faith Popoola — backend &amp; distributed-systems engineer,{' '}
+        <span className="text-accent">
+          Founder / Backend Engineer at QuickBite
+        </span>{' '}
+        since April 2026.
+        {/* TODO(owner): relocate PortalHq (prior Frontend Lead, since Aug 2024) to a dedicated Experience entry — real ~2yr tenure, don't lose it */}
       </>
     ),
     body: (

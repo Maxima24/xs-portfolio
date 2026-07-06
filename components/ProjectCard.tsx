@@ -10,6 +10,10 @@ const a = {
 };
 
 export function ProjectCard({ project }: { project: Project }) {
+  // P1.1: the live demo is the highest-payoff signal — surface it as a prominent
+  // button, not a small header link. Secondary links (repo) stay in the header.
+  const liveLink = project.links.find((l) => l.kind === 'live');
+  const secondaryLinks = project.links.filter((l) => l.kind !== 'live');
 
   return (
     <article
@@ -33,17 +37,17 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="flex flex-1 flex-col gap-4 p-6">
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="text-xl font-bold text-white">{project.title}</h3>
-          {project.links.length > 0 && (
+          {secondaryLinks.length > 0 && (
             <div className="flex items-center gap-3 text-sm">
-              {project.links.map((link) => (
+              {secondaryLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`font-mono text-xs underline-offset-4 hover:underline ${a.text}`}
+                  className={`font-mono text-xs underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-none ${a.text}`}
                 >
-                  {link.kind === 'github' ? 'GitHub ↗' : 'Live ↗'}
+                  {link.kind === 'github' ? 'Code ↗' : `${link.label} ↗`}
                 </a>
               ))}
             </div>
@@ -68,6 +72,18 @@ export function ProjectCard({ project }: { project: Project }) {
             <span className="font-medium">{project.outcome}</span>
           </p>
         </div>
+
+        {liveLink && (
+          <a
+            href={liveLink.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-fit items-center gap-2 rounded-lg border border-accent/60 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent shadow-glow-accent transition-colors hover:bg-accent/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            <span aria-hidden>▶</span>
+            {liveLink.label || 'Live Demo'}
+          </a>
+        )}
 
         <div className="mt-auto flex flex-wrap gap-2 pt-2">
           {project.stack.map((s) => (

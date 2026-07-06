@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { TechDepthItem } from '@/data/techDepth';
 import { Section, SectionHeading } from './Section';
 
@@ -43,6 +44,14 @@ export function TechnicalDepth({
                 </span>
               ))}
             </div>
+            {d.href && (
+              <Link
+                href={d.href}
+                className="mt-1 inline-flex w-fit items-center gap-1 font-mono text-xs text-accent underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                Read the write-up →
+              </Link>
+            )}
           </article>
         ))}
       </div>

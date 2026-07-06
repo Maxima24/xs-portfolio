@@ -39,6 +39,9 @@ export const projects: Project[] = [
       'Turborepo',
     ],
     image: '/projects/swifthum.svg',
+    // TODO(owner): P1.1 highest-payoff item — add a live, interactive demo (two-tab ultrasonic
+    // transfer) or a <=30s Loom, e.g. { label: 'Live Demo', href: '<url>', kind: 'live' }.
+    // TODO(owner): P1.2 add sanitized public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'magenta',
   },
@@ -52,6 +55,7 @@ export const projects: Project[] = [
       'Flags anomalies via Z-score (>3σ) and 5× spike checks, auto-bans through iptables on an exponential-backoff schedule, and ships as a tiny multi-stage Docker image.',
     stack: ['Go', 'Goroutines / Channels', 'iptables', 'Nginx', 'Docker', 'Slack'],
     image: '/projects/detector.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'magenta',
   },
@@ -65,6 +69,7 @@ export const projects: Project[] = [
       'Buildpack-style pipeline — use a repo’s Dockerfile if present, else auto-generate one — in a type-safe Turborepo monorepo (Next.js dashboard + Node orchestrator).',
     stack: ['Node.js', 'Next.js', 'Docker Engine API', 'Postgres', 'Prisma', 'Turborepo'],
     image: '/projects/render-lite.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'cyan',
   },
@@ -78,6 +83,7 @@ export const projects: Project[] = [
       'Multi-channel AI assistant (WhatsApp / USSD / voice) for informal traders — a Go comms microservice split from a NestJS core, with Google Gemini for language. Built for the OPay × Google National Innovation Challenge 2026.',
     stack: ['Go', 'NestJS', 'Google Gemini', 'Gemini Live', 'Docker Compose'],
     image: '/projects/owise.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'lime',
   },
@@ -91,6 +97,7 @@ export const projects: Project[] = [
       'Event-driven analytics and a background indexer keep results fresh without blocking queries.',
     stack: ['NestJS', 'Pinecone', 'pgvector', 'Transformers.js', 'Redis / Bull', 'Prisma'],
     image: '/projects/search-engine.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'lime',
   },
@@ -101,9 +108,12 @@ export const projects: Project[] = [
       'A multi-sided food-delivery marketplace needs three tightly-coupled mobile clients — consumer, vendor, and rider — kept in lockstep on a single release cadence.',
     role: 'Built all three React Native / Expo apps and owned the EAS build-and-release pipeline shipping to Google Play.',
     outcome:
-      "Shipped three production apps (consumer, vendor, rider) to Google Play across two Play Console accounts — FCM/APNs dual-channel order alerts and background-location live tracking that cleared Google's policy review. [NUM: orders/day or vendors]",
+      "Shipped three production apps (consumer, vendor, rider) to Google Play across two Play Console accounts — FCM/APNs dual-channel order alerts and background-location live tracking that cleared Google's policy review.",
+    // Kept qualitative per owner. TODO(owner): optionally add a real scale metric (orders/day, active vendors, MAU) if you have one.
     stack: ['React Native', 'Expo', 'EAS', 'NestJS', 'Postgres', 'FCM/APNs'],
     image: '/projects/cargoland.svg',
+    // TODO(owner): P1.1/P1.2 Cargoland is live on Google Play — add the Play Store link
+    // ({ label: 'Live Demo', href: '<play-store-url>', kind: 'live' }) and a public repo.
     links: [],
     accent: 'cyan',
   },
@@ -117,6 +127,7 @@ export const projects: Project[] = [
       'Refresh-queue JWT auth that retries in-flight requests after a silent token refresh, with Socket.IO live updates across hardware-NFC and QR flows.',
     stack: ['React Native', 'Expo', 'NFC', 'Next.js', 'Socket.IO', 'React Query'],
     image: '/projects/payaza.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'cyan',
   },
@@ -127,9 +138,12 @@ export const projects: Project[] = [
       'A food-delivery platform that needs reliable, production-grade payment collection from day one.',
     role: 'Took a NestJS food-delivery backend from code to live production solo — owned the AWS deploy, reverse proxy, DNS, and security hardening.',
     outcome:
-      'AWS EC2 + Dockerized stack behind an Nginx reverse proxy and Cloudflare DNS, with security hardening (fail2ban + WAF) that blocked 142 bot intrusion attempts. Paystack payments live and verified end-to-end.',
+      'AWS EC2 + Dockerized stack behind an Nginx reverse proxy and Cloudflare DNS, hardened with fail2ban + a WAF. Paystack payments live in production, collected and verified end-to-end.',
+    // Kept qualitative per owner — no invented numbers. TODO(owner): if/when instrumented, you can add
+    // ONE load-bearing metric here (payment volume processed, transactions settled, uptime, or p99).
     stack: ['NestJS', 'AWS EC2', 'Docker', 'Nginx', 'Cloudflare', 'Paystack'],
     image: '/projects/quickbite.svg',
+    // TODO(owner): P1.1/P1.2 QuickBite is live — add the live URL and a sanitized public repo.
     links: [],
     accent: 'cyan',
   },
@@ -143,6 +157,7 @@ export const projects: Project[] = [
       'A construction supply-chain fintech that turns verified labor transactions into bankable credit history for informal workers — Squad APIs for payments, Smile ID KYC — presented solo at Squad Hackathon 3.0.',
     stack: ['Flutter', 'Next.js', 'Squad API', 'Smile ID', 'Postgres'],
     image: '/projects/forge.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'cyan',
   },
@@ -156,6 +171,7 @@ export const projects: Project[] = [
       'An AI portfolio-risk tool on Google Gemini + the Bayse API — turning raw holdings into plain-language risk signals.',
     stack: ['Next.js', 'Google Gemini', 'Bayse API', 'Python'],
     image: '/projects/synthsentry.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'magenta',
   },
@@ -166,9 +182,11 @@ export const projects: Project[] = [
       'The reliability patterns behind production infrastructure — exactly-once delivery, backpressure, retries — are easy to name and hard to get right, so I am building them from the ground up.',
     role: 'Designing and building it solo as a deep-dive into reliable infra: a Kafka broker, Redis rate-limiting, Postgres persistence, and channel workers with retry/backoff and dead-letter queues.',
     outcome:
-      'Building a distributed notification system in Java/Spring Boot: Kafka broker, Redis rate-limiting, Postgres persistence, channel workers with retry/backoff, dead-letter queues, and idempotent delivery. A ground-up study in the systems patterns behind reliable infrastructure. [NUM: throughput target]',
+      'Building a distributed notification system in Java/Spring Boot: Kafka broker, Redis rate-limiting, Postgres persistence, channel workers with retry/backoff, dead-letter queues, and idempotent delivery. A ground-up study in the systems patterns behind reliable infrastructure.',
+    // TODO(owner): P1.4 add a throughput target/benchmark once instrumented (e.g. msgs/sec sustained). Do not invent.
     stack: ['Java', 'Spring Boot', 'Kafka', 'Redis', 'Postgres'],
     image: '/projects/notification-service.svg',
+    // TODO(owner): P1.2 add public repo — { label: 'Code', href: 'https://github.com/...', kind: 'github' }
     links: [],
     accent: 'lime',
   },

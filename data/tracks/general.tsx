@@ -7,20 +7,20 @@ import type { TrackContent } from './types';
 // flagship builds in canonical (depth-first) voice; the other canonical
 // projects stay in data/ for the frontend/backend tracks to reframe.
 const projects: Project[] = [
+  projectsById['quickbite'],
   projectsById['cargoland'],
   projectsById['swifthum'],
-  projectsById['quickbite'],
   projectsById['owise'],
-  projectsById['notification-service'],
   projectsById['forge'],
   projectsById['synthsentry'],
+  projectsById['notification-service'],
 ];
 
 export const general: TrackContent = {
   key: 'general',
   label: 'Software Engineer',
   hero: {
-    role: site.role,
+    role: 'Full-stack Engineer · Founder @ QuickBite',
     valueProp: site.valueProp,
   },
   coreStack: 'Go · TS · NestJS',
@@ -33,9 +33,10 @@ export const general: TrackContent = {
   about: {
     lead: (
       <>
-        Faith Popoola — full-stack engineer and{' '}
-        <span className="text-accent">Frontend Lead at PortalHq</span> since
-        August 2024.
+        Faith Popoola —{' '}
+        <span className="text-accent">full-stack engineer</span>, Founder /
+        Backend Engineer at QuickBite since April 2026.
+        {/* TODO(owner): relocate PortalHq (prior Frontend Lead, since Aug 2024) to a dedicated Experience entry — real ~2yr tenure, don't lose it */}
       </>
     ),
     body: (
